@@ -1,5 +1,6 @@
 import 'package:conference_planner_client/GraphQL/AppQueries.dart';
 import 'package:conference_planner_client/Models/Track.dart';
+import 'package:conference_planner_client/Pages/sessions_page.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
@@ -34,15 +35,27 @@ class TracksPage extends StatelessWidget {
                 itemCount: tracks!.length,
                 itemBuilder: (BuildContext context, int index) {
                   Track track = tracks[index];
-                  return Card(
-                      child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(track.name!, style: TextStyle(fontSize: 30)),
-                      SizedBox(height: 20),
-                      Text(track.sessions!.length.toString() + " Sessions"),
-                    ],
-                  ));
+                  return InkWell(
+                    onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (_) => SessionsPage(
+                                  gClient,
+                                  track: track,
+                                ))),
+                    child: Card(
+                        child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(track.name!, style: TextStyle(fontSize: 30)),
+                        SizedBox(height: 20),
+                        Text(
+                          track.sessions!.length.toString() + " Sessions",
+                          style: TextStyle(color: Colors.pink[300]),
+                        ),
+                      ],
+                    )),
+                  );
                 });
           }),
     );

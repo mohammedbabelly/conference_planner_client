@@ -6,6 +6,7 @@ class AppQueries {
     sessions@include(if: $showSessions){
       id
       title
+      description
       startTime
       endTime
       type

@@ -1,19 +1,23 @@
 import 'dart:convert';
 
+import 'package:intl/intl.dart';
+
 class Session {
-  Session({
-    this.id,
-    this.title,
-    this.startTime,
-    this.endTime,
-    this.type,
-  });
+  Session(
+      {this.id,
+      this.title,
+      this.description,
+      this.startTime,
+      this.endTime,
+      this.type});
 
   final String? id;
   final String? title;
-  final DateTime? startTime;
-  final DateTime? endTime;
+  final String? description;
+  final String? startTime;
+  final String? endTime;
   final String? type;
+  late final String? trackName;
 
   factory Session.fromRawJson(String str) => Session.fromJson(json.decode(str));
 
@@ -22,16 +26,22 @@ class Session {
   factory Session.fromJson(Map<String, dynamic> json) => Session(
         id: json["id"],
         title: json["title"],
-        startTime: DateTime.parse(json["startTime"]),
-        endTime: DateTime.parse(json["endTime"]),
+        description: json["description"],
+        startTime: DateFormat('dd/MM/yyyy HH:mm')
+            .format(DateTime.parse(json["startTime"]))
+            .toString(),
+        endTime: DateFormat('dd/MM/yyyy HH:mm')
+            .format(DateTime.parse(json["endTime"]))
+            .toString(),
         type: json["type"],
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
         "title": title,
-        "startTime": startTime!.toIso8601String(),
-        "endTime": endTime!.toIso8601String(),
+        "description": description,
+        "startTime": startTime,
+        "endTime": endTime,
         "type": type,
       };
 }

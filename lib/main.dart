@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         darkTheme: ThemeData(brightness: Brightness.dark),
-        theme: ThemeData(scaffoldBackgroundColor: Colors.pink),
+        theme: ThemeData(primaryColor: Colors.pink),
         title: "ConferencePlannerQL Client",
         home: TracksPage(gClient),
       ),
